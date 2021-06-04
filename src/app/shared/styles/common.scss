@@ -1,0 +1,11 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
+@mixin common-app-styles($theme) {
+    .app-action:hover {
+        background: map-get($theme, $warn);
+    }
+}
+.default-pointer{
+    cursor: default !important;
+}

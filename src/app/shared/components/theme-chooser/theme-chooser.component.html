@@ -1,0 +1,30 @@
+<button mat-button [matMenuTriggerFor]="themes">Themes</button>
+<mat-menu #themes="matMenu" yPosition="below" xPosition="before">
+    <button mat-menu-item *ngFor="let theme of items" (click)="themeChanged(theme.class)"
+        style="height: max-content !important;">
+        <ng-container *ngTemplateOutlet="themePickerItem;context:{theme: theme, currentTheme: currentTheme}">
+        </ng-container>
+    </button>
+</mat-menu>
+
+<ng-template #themePickerItem let-theme="theme" let-currentTheme="currentTheme">
+
+    <div class="row" style="margin: .5em;">
+
+        <mat-checkbox class="col" [checked]="currentTheme === theme.class" color="primary"></mat-checkbox>
+
+
+            <div class="sample col">
+                <div [class]="'mock-nav-'+theme.class">
+
+                </div>
+                <div [class]="'mock-background-'+theme.class">
+
+                </div>
+            </div>
+            <div class="text col">
+                {{ theme.text }}
+            </div>
+    </div>
+
+</ng-template>

@@ -1,0 +1,7 @@
+
+:host {
+    font: 1em Roboto, sans-serif !important ;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }

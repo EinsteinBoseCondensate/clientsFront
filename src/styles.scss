@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./app/shared/styles/themes.scss";
+@import "./app/shared/styles/fonts.css";
+@import "./app/shared/styles/flex.scss";
+
+body {
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+.master {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+
+.content {
+    display: inline-flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}

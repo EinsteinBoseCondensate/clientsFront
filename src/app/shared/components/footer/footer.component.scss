@@ -1,0 +1,18 @@
+@import "~@angular/material/theming";
+@include mat-core();
+:host {
+    position: relative;
+    bottom: 0;
+    margin-top: auto;
+}
+
+@mixin footer-theme($theme, $is-dark-theme) {
+    .footer {
+        background-color: mat-color(map-get($theme, primary));
+        @if $is-dark-theme {
+            color: black;
+        } @else {
+            color: white;
+        }
+    }
+}

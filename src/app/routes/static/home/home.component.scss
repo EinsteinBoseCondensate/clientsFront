@@ -1,0 +1,50 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
+.checkbox-container {
+    --height: 1.5rem;
+    --width: 3.2rem;
+    --bolt-margin: 0.15rem;
+    --bolt-margin-calc: calc(var(--bolt-margin) / 2);
+    --checkbox-heigh: calc(var(--height) - var(--bolt-margin));
+    --checked-distance: 0px;
+    height: var(--height);
+    width: var(--width);
+    border-radius: var(--width);
+    display: flex;
+    transition: all 0.2s ease-in-out;
+    .checkbox-bolt {
+        height: var(--checkbox-heigh);
+        width: var(--height);
+        border-radius: var(--width);        
+        margin: var(--bolt-margin-calc) var(--bolt-margin-calc) var(--bolt-margin-calc) var(--bolt-margin-calc);
+        transform: translateX(var(--checked-distance));
+        transition: all 0.2s ease-in-out;
+    }
+}
+.checkbox-container.checked {
+    transition: all 0.2s ease-in-out;
+    --checked-distance: calc(var(--width) - var(--height) - var(--bolt-margin));
+}
+.checkbox-container.unchecked {
+    background-color: rgba(150, 150, 150, 0.26);
+    transition: all 0.2s ease-in-out;
+    --checked-distance: 0px;
+}
+section {
+    display: flex;
+    width: 100%;
+}
+
+@mixin custom-checkbox-theme($theme, $is-dark-theme){
+    .checkbox-container.checked {
+        background-color: mat-color(map-get($theme, primary));
+    }
+    .checkbox-bolt{
+        @if $is-dark-theme {
+            background-color: #303030;
+        } @else {
+            background-color: white;
+        }
+    }
+}
