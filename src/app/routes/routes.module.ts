@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StaticModule } from './static/static.module';
-import { DynamicModule } from './dynamic/dynamic.module';
 
 
 
@@ -10,12 +9,10 @@ import { DynamicModule } from './dynamic/dynamic.module';
   declarations: [],
   imports: [
     CommonModule,
-    StaticModule,
-    DynamicModule
+    StaticModule
   ],
   exports:[
-    StaticModule,
-    DynamicModule
+    StaticModule
   ]
 })
 export class RoutesModule { }

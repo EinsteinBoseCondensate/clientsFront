@@ -5,7 +5,6 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectedMaterialModule } from './styles/selected-material/selected-material.module';
 import { ThemeChooserComponent } from './components/theme-chooser/theme-chooser.component';
-import { SignalrService } from './services/signal-r.service';
 
 
 
@@ -31,8 +30,7 @@ export class SharedModule {
         ToolbarComponent, 
         FooterComponent,
         SelectedMaterialModule,
-        BrowserAnimationsModule,
-        SignalrService
+        BrowserAnimationsModule
       ]
     }
   }

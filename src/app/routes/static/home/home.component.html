@@ -1,11 +1,7 @@
-<section *ngFor="let item of items">
+<section >
     <p>
         home works!
     </p>
     
-    <div (click)="checkbox.value == 'true' ? checkbox.value = 'false' : checkbox.value = 'true'" [class]="'checkbox-container ' + (checkbox.value == 'true' ? 'checked' : 'unchecked')">
-        <input type="hidden" #checkbox value=false>
-        <div class="checkbox-bolt">
-        </div>        
-    </div>
+    
 </section>
