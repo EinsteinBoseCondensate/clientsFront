@@ -5,7 +5,7 @@
     --colorDatePicker: black;
 }
 :host {
-    height:  -webkit-fill-available !important;
+    height: -webkit-fill-available !important;
 }
 #home-master {
     display: flex;
@@ -13,9 +13,9 @@
     width: 100%;
     height: 100%;
 }
-.crud-selector{
+.crud-selector {
     font-size: 20px !important;
-    .remove{
+    .remove {
         width: fit-content;
         padding: 0.3em;
         display: inline;
@@ -31,8 +31,8 @@
     height: fit-content;
     padding: 3rem;
     opacity: 0.9;
-    
-    form{
+
+    form {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
@@ -51,14 +51,16 @@
                 margin-top: 25%;
                 transform-origin: 50% 50%;
             }
-.checkbox-container.checked {
-    transition: all 0.2s ease-in-out;
-    --checked-distance: calc(var(--width) - var(--height) - var(--bolt-margin));
+            .checkbox-container.checked {
+                transition: all 0.2s ease-in-out;
+                --checked-distance: calc(var(--width) - var(--height) - var(--bolt-margin));
+            }
+            .checkbox-container.unchecked {
+                background-color: rgba(150, 150, 150, 0.26);
+                transition: all 0.2s ease-in-out;
+                --checked-distance: 0px;
+            }
         }
-.checkbox-container.unchecked {
-    background-color: rgba(150, 150, 150, 0.26);
-    transition: all 0.2s ease-in-out;
-    --checked-distance: 0px;
     }
 }
 div fa-icon {
@@ -71,7 +73,7 @@ div fa-icon {
     height: -webkit-fill-available !important;
     padding: 3rem;
     justify-content: flex-end;
-    section{
+    section {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -92,15 +94,15 @@ div fa-icon {
         }
     }
 }
-div.edit, 
-div.remove{
-border-radius: 4px;
-font-weight: bold;
-text-transform: uppercase;
+div.edit,
+div.remove {
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
-.action-cell{
+.action-cell {
     display: flex;
-    div{
+    div {
         padding: 0.5rem;
         display: flex;
         flex-direction: column;
@@ -125,7 +127,16 @@ text-transform: uppercase;
     transition: all 0.2s ease-in-out;
 }
 
-div.mat-paginator-page-size.ng-star-inserted > mat-form-field > div > div.mat-form-field-flex > div mat-select div div span span{
+div.mat-paginator-page-size.ng-star-inserted
+    > mat-form-field
+    > div
+    > div.mat-form-field-flex
+    > div
+    mat-select
+    div
+    div
+    span
+    span {
     color: var(--colorDatePicker) !important;
 }
 
@@ -150,7 +161,6 @@ div.mat-paginator-page-size.ng-star-inserted > mat-form-field > div > div.mat-fo
     .country-select div div .mat-select-arrow,
     .mat-datepicker-toggle-default-icon,
     .mat-select-min-line {
-        
         @if $is-dark-theme {
             color: black !important;
             --colorDatePicker: white;
@@ -162,19 +172,17 @@ div.mat-paginator-page-size.ng-star-inserted > mat-form-field > div > div.mat-fo
         }
     }
     .top-body,
-    .mat-form-field-infix input,    
+    .mat-form-field-infix input,
     mat-label {
         background-color: mat-color(map-get($theme, primary));
     }
     fa-icon svg path {
         fill: mat-color(map-get($theme, primary));
     }
-    div.edit{
+    div.edit {
         background-color: mat-color(map-get($theme, accent));
     }
-    div.remove{
+    div.remove {
         background-color: mat-color(map-get($theme, warn));
     }
-
-    
 }
