@@ -16,7 +16,11 @@ Follow next steps to run this project:
             }
             $icon-zoom: strip-units($swal2-icon-size) / 5;
 
-4. Run `ng serve --open` as it's indicated in next (Development server) section.
+4. Run `ng serve --open` as it's indicated in Development server section.
+
+## Backend configuration
+
+Open `src/assets/app-settings/app-settings.json` and edit your backend's endpoint.
 
 ## Development server
 
