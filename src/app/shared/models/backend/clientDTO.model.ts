@@ -5,9 +5,9 @@ export interface ClientDTO {
     id: string;
     name: string;
     surname: string;
-    gender: Gender;
+    gender: number;
     dateOfBirth: string;
     address: string;
-    country: string;
+    countryId: string;
     postalCode: string;
 }

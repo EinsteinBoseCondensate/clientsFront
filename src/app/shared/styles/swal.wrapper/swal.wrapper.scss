@@ -1,0 +1,25 @@
+
+@mixin sweet-alert-theme($theme, $is-dark-theme){
+
+    .swal2-styled.swal2-confirm,
+    .swal2-icon.swal2-success {
+        background-color: mat-color(map-get($theme, primary)) !important;
+    }
+    .swal2-styled.swal2-cancel,
+    .swal2-styled.swal2-deny{
+        background-color: mat-color(map-get($theme, warn)) !important;
+    }
+
+    .swal2-popup,
+    .swal2-title,
+    .swal2-html-container{
+        @if $is-dark-theme {            
+            color: white !important;
+            background-color: #303030;
+        } @else {
+            color: #303030;
+            background-color: white;
+        }
+    }
+    
+}

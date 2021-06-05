@@ -1,50 +1,180 @@
 @import "~@angular/material/theming";
 @include mat-core();
-
-.checkbox-container {
-    --height: 1.5rem;
-    --width: 3.2rem;
-    --bolt-margin: 0.15rem;
-    --bolt-margin-calc: calc(var(--bolt-margin) / 2);
-    --checkbox-heigh: calc(var(--height) - var(--bolt-margin));
-    --checked-distance: 0px;
-    height: var(--height);
-    width: var(--width);
-    border-radius: var(--width);
+:root {
+    --backgroundDatePicker: white;
+    --colorDatePicker: black;
+}
+:host {
+    height:  -webkit-fill-available !important;
+}
+#home-master {
     display: flex;
-    transition: all 0.2s ease-in-out;
-    .checkbox-bolt {
-        height: var(--checkbox-heigh);
-        width: var(--height);
-        border-radius: var(--width);        
-        margin: var(--bolt-margin-calc) var(--bolt-margin-calc) var(--bolt-margin-calc) var(--bolt-margin-calc);
-        transform: translateX(var(--checked-distance));
-        transition: all 0.2s ease-in-out;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.crud-selector{
+    font-size: 20px !important;
+    .remove{
+        width: fit-content;
+        padding: 0.3em;
+        display: inline;
+        font-weight: bold !important;
+        margin-left: 1.5em;
+        cursor: pointer;
     }
 }
+.top-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    padding: 3rem;
+    opacity: 0.9;
+    
+    form{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 100%;
+        .field-wrapper {
+            margin: 0.5rem;
+            div fa-icon svg,
+            div fa-icon {
+                display: flex;
+                width: 100%;
+                height: 100%;
+            }
+
+            div fa-icon svg {
+                display: flex;
+                margin-top: 25%;
+                transform-origin: 50% 50%;
+            }
 .checkbox-container.checked {
     transition: all 0.2s ease-in-out;
     --checked-distance: calc(var(--width) - var(--height) - var(--bolt-margin));
-}
+        }
 .checkbox-container.unchecked {
     background-color: rgba(150, 150, 150, 0.26);
     transition: all 0.2s ease-in-out;
     --checked-distance: 0px;
-}
-section {
-    display: flex;
-    width: 100%;
-}
-
-@mixin custom-checkbox-theme($theme, $is-dark-theme){
-    .checkbox-container.checked {
-        background-color: mat-color(map-get($theme, primary));
     }
-    .checkbox-bolt{
-        @if $is-dark-theme {
-            background-color: #303030;
-        } @else {
-            background-color: white;
+}
+div fa-icon {
+    cursor: pointer;
+}
+.bottom-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: -webkit-fill-available !important;
+    padding: 3rem;
+    justify-content: flex-end;
+    section{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .field-wrapper {
+            margin: 0.5rem;
+            div fa-icon svg,
+            div fa-icon {
+                display: flex;
+                width: 100%;
+                height: 100%;
+            }
+
+            div fa-icon svg {
+                display: flex;
+                margin-top: 25%;
+                transform-origin: 50% 50%;
+            }
         }
     }
+}
+div.edit, 
+div.remove{
+border-radius: 4px;
+font-weight: bold;
+text-transform: uppercase;
+}
+.action-cell{
+    display: flex;
+    div{
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        margin: 4px;
+        width: fit-content;
+        cursor: pointer;
+    }
+}
+#submit-crud {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 5rem;
+    padding: 0.3em;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    opacity: 0.4;
+    background-color: black;
+}
+#submit-crud:hover {
+    opacity: 0.3;
+    transition: all 0.2s ease-in-out;
+}
+
+div.mat-paginator-page-size.ng-star-inserted > mat-form-field > div > div.mat-form-field-flex > div mat-select div div span span{
+    color: var(--colorDatePicker) !important;
+}
+
+.mat-datepicker-content,
+.mat-select-panel-wrap {
+    box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
+    display: flex;
+    border-radius: 2px;
+    background-color: var(--backgroundDatePicker);
+    color: var(--colorDatePicker);
+}
+.mat-calendar,
+.mat-calendar-content {
+    height: fit-content !important;
+}
+@mixin home-theme($theme, $is-dark-theme) {
+    .top-body,
+    .mat-form-field-infix input,
+    mat-label,
+    mat-hint,
+    .gender-select div div .mat-select-arrow,
+    .country-select div div .mat-select-arrow,
+    .mat-datepicker-toggle-default-icon,
+    .mat-select-min-line {
+        
+        @if $is-dark-theme {
+            color: black !important;
+            --colorDatePicker: white;
+            --backgroundDatePicker: #303030;
+        } @else {
+            color: white !important;
+            --colorDatePicker: #303030;
+            --backgroundDatePicker: white;
+        }
+    }
+    .top-body,
+    .mat-form-field-infix input,    
+    mat-label {
+        background-color: mat-color(map-get($theme, primary));
+    }
+    fa-icon svg path {
+        fill: mat-color(map-get($theme, primary));
+    }
+    div.edit{
+        background-color: mat-color(map-get($theme, accent));
+    }
+    div.remove{
+        background-color: mat-color(map-get($theme, warn));
+    }
+
+    
 }

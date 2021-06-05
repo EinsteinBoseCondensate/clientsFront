@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppSettings } from '../models/app-settings/app-settings.model';
+import { CountryFeed } from '../models/backend/all.countries.feed';
 @Injectable()
 export class AppSettingsService {
 

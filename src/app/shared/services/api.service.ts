@@ -76,7 +76,7 @@ import { AppSettingsService } from './app-settings.service';
     }
   
     
-    delete(path): Observable<any> {
+    delete(path: string): Observable<any> {
       return this.http.delete(`${AppSettingsService.settings.apiUrl}${path}`, { headers: this.setHeaders() })
         .pipe(
           map((res: Object) => res),

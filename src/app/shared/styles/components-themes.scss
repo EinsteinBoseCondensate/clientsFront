@@ -2,6 +2,7 @@
 @import "../components/footer/footer.component.scss";
 @import "./common.scss";
 @import "../../routes/static/home/home.component.scss";
+@import "./swal.wrapper/swal.wrapper.scss";
 
 @mixin components-theme($theme) {
   @include common-app-styles($theme);
@@ -10,5 +11,6 @@
   @include toolbar-theme($theme, $is-dark-theme);
   @include footer-theme($theme, $is-dark-theme);
   @include footer-theme($theme, $is-dark-theme);
-  @include custom-checkbox-theme($theme, $is-dark-theme);
+  @include home-theme($theme, $is-dark-theme);
+  
 }

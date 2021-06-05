@@ -5,7 +5,10 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectedMaterialModule } from './styles/selected-material/selected-material.module';
 import { ThemeChooserComponent } from './components/theme-chooser/theme-chooser.component';
-
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ApiService } from './services/api.service';
+import { ClientService } from './services/clients.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'  
 
 
 @NgModule({
@@ -13,13 +16,20 @@ import { ThemeChooserComponent } from './components/theme-chooser/theme-chooser.
   imports: [
     CommonModule,
     SelectedMaterialModule,
-    BrowserAnimationsModule
+    HttpClientModule,
+    BrowserAnimationsModule,    
+    FontAwesomeModule  
+  ],
+  providers:[
+    ApiService,
+    ClientService
   ],
   exports:[
     ToolbarComponent,
     FooterComponent,
     SelectedMaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ]
 })
 export class SharedModule {
@@ -30,7 +40,10 @@ export class SharedModule {
         ToolbarComponent, 
         FooterComponent,
         SelectedMaterialModule,
-        BrowserAnimationsModule
+        FontAwesomeModule,
+        BrowserAnimationsModule,
+        ApiService,
+        ClientService
       ]
     }
   }

@@ -13,6 +13,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 .app-default-theme {
 
     @include angular-material-theme($theme);
+    @include mat-table-theme($theme);
     @include components-theme($theme);
     @include components-theme-extra-info($theme, false);
     
@@ -20,7 +21,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 
 //dark-theme
-$dark-primary: mat-palette($mat-yellow);
+$dark-primary: mat-palette($mat-pink);
 $dark-accent: mat-palette($mat-amber, A400, A100, A700);
 $dark-warn: mat-palette($mat-red);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
@@ -28,7 +29,16 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .app-dark-theme {
 
     @include angular-material-theme($dark-theme);
+    @include mat-table-theme($dark-theme);
     @include components-theme($dark-theme);
     @include components-theme-extra-info($dark-theme, true);
 
+}
+
+/*SWEETALERT SPECIFIC BEHAVIOUR, IT'S ON A SEPARATE CONTAINER*/
+body.app-default-theme .swal2-container{
+    @include sweet-alert-theme($theme, false);
+}
+body.app-dark-theme .swal2-container{
+    @include sweet-alert-theme($dark-theme, true);
 }
