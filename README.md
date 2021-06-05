@@ -1,6 +1,22 @@
-# CustomThemeAndTranslateExample
+# ClientsAndCountriesFetcher
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
+
+## Developer notes
+
+Follow next steps to run this project:
+
+1. Run `npm i` (install (LTS version of) node if you don't already have it installed in your machine).
+2. Open file ./node_modules/sweetalert2/src/scss/_core.scss.
+3. Search in file for `math.div` and replace it with a simple use of divide operator like:
+
+            // https://stackoverflow.com/a/12335841/1331425
+            @function strip-units($number) {
+              @return $number / ($number * 0 + 1);
+            }
+            $icon-zoom: strip-units($swal2-icon-size) / 5;
+
+4. Run `ng serve --open` as it's indicated in next (Development server) section.
 
 ## Development server
 
