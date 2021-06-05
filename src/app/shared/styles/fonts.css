@@ -1,0 +1,6 @@
+* {
+    font: 15px Roboto, sans-serif !important ;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
