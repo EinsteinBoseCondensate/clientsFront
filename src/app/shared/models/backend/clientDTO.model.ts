@@ -11,3 +11,7 @@ export interface ClientDTO {
     countryId: string;
     postalCode: string;
 }
+export interface ClientFilterDTO extends ClientDTO{
+    from: Date,
+    to: Date
+}

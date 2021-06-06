@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { CountryFeed } from "../models/backend/all.countries.feed";
-import { ClientDTO } from "../models/backend/clientDTO.model";
+import { ClientDTO, ClientFilterDTO } from "../models/backend/clientDTO.model";
 import { CRUDResult } from "../models/backend/crud-result.model";
 import { ApiService } from "./api.service";
 
@@ -15,8 +15,8 @@ export class ClientService {
     constructor(
         private apiService: ApiService) { }
 
-    public getClients(): Observable<ClientDTO[]> {
-        return this.apiService.get(controllerRoute);
+    public getClients(filter: ClientFilterDTO): Observable<ClientDTO[]> {
+        return this.apiService.post(controllerRoute+'get', filter);
     }
     public editClient(client: ClientDTO): Observable<CRUDResult> {
         return this.apiService.put(controllerRoute, client);

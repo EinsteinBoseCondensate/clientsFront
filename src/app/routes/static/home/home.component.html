@@ -73,8 +73,82 @@
         </form>
     </section>
     <section class="bottom-body">
-        <div class="crud-selector">Search</div>
-        <section>
+        
+        <section class="top-body search-panel">
+            <div class="crud-selector">Search</div>
+            <form [formGroup]="searchFilterForm">
+                <!-- " -->
+                <input type="hidden" formControlName="id">
+                <input type="hidden" formControlName="dateOfBirth">
+                <div class="field-wrapper">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" autocomplete="off">
+                        <mat-hint>(Hint)Paul</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Surname</mat-label>
+                        <input matInput formControlName="surname" autocomplete="off">
+                        <mat-hint>(Hint)Milestones</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Gender</mat-label>
+                        <mat-select formControlName="gender" class="gender-select">
+                            <mat-option value="0">Male</mat-option>
+                            <mat-option value="1">Female</mat-option>
+                            <mat-option value="2">Ambiguous</mat-option>
+                        </mat-select>
+                        <mat-hint>(Hint)Female</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Date of birth (From)</mat-label>
+                        <input matInput formControlName="from" [matDatepicker]="pickeFrom">
+                        <mat-datepicker-toggle matSuffix [for]="pickeFrom"></mat-datepicker-toggle>
+                        <mat-datepicker #pickeFrom></mat-datepicker>
+                        <mat-hint>(Hint)Date of birth start search date</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Date of birth (To)</mat-label>
+                        <input matInput formControlName="to" [matDatepicker]="pickerTo">
+                        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerTo></mat-datepicker>
+                        <mat-hint>(Hint)Date of birth end search date</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="address" autocomplete="off">
+                        <mat-hint>(Hint)Morris Ave</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="countryId" class="country-select">
+                            <mat-option *ngFor="let countr of countries" [value]="countr.id">
+                                {{countr.code }} - {{ countr.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint>(Hint)Spain</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Postal code</mat-label>
+                        <input matInput formControlName="postalCode" autocomplete="off">
+                        <mat-hint>(Hint)30700</mat-hint>
+                    </mat-form-field>
+                </div>
+            </form>
             <div class="field-wrapper">
                 <div id="submit-crud" (click)="onClientSearch()" title="Search">
                     <fa-icon [icon]="['fas', 'user']"></fa-icon>

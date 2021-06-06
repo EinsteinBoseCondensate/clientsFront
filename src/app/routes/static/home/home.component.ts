@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { CountryFeed } from '../../../shared/models/backend/all.countries.feed';
-import { ClientDTO } from '../../../shared/models/backend/clientDTO.model';
+import { ClientDTO, ClientFilterDTO } from '../../../shared/models/backend/clientDTO.model';
 import { CRUDResult } from '../../../shared/models/backend/crud-result.model';
 import { unsubscribeIfValid } from '../../../shared/services/subscriptions.helper';
 import { ClientService } from '../../../shared/services/clients.service';
@@ -105,23 +105,25 @@ export class HomeComponent implements OnInit, OnDestroy {
             )
           });
     },
-    "Search": (dto: ClientDTO) => {
+    "Search": (dto: ClientFilterDTO) => {
       unsubscribeIfValid(this.getClientsSubscription);
       this.refreshDataTable([]);
-      this.getClientsSubscription = this.clientService.getClients()
+      this.getClientsSubscription = this.clientService.getClients(dto)
         .subscribe((result: ClientDTO[]) => {
           this.refreshDataTable(result);
           if (result && result.length) {
             SwalFire(
               'Clients fetched',
               `Clients successfully fetched`,
-              'success'
+              'success',
+              2500
             )
           } else {
             SwalFire(
               'No clients fetched',
               `No clients arrived from request`,
-              'warning'
+              'warning',
+              4000
             )
           }
         },
@@ -129,7 +131,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             SwalFire(
               'Clients couldn\'t be fetched',
               `There was a communication and/or server error: ${error}`,
-              'error'
+              'error',
+              8000
             )
           });
     },
@@ -156,19 +159,26 @@ export class HomeComponent implements OnInit, OnDestroy {
   public editSubscription: Subscription = new Subscription();
   public removeSubscription: Subscription = new Subscription();
   public filterForm: FormGroup;
+  public searchFilterForm: FormGroup;
   private defaultClientDTO: any = {
     'id': 'fakeId',
     'name': "",
     'surname': "",
     'gender': 2,
-    'dateOfBirth': moment(new Date()).add('year', -18).format('MM-DD-YYYY'),
+    'dateOfBirth': null,
     'address': "",
     'countryId': '',
     'postalCode': ""
   };
+  private defaultClientFilterDTO: any = {
+    ...this.defaultClientDTO,
+    "from": null,
+    "to": null
+  };
   private filterFormKeys = 'id.name.surname.gender.dateOfBirth.address.countryId.postalCode'.split('.');
   constructor(private fb: FormBuilder, private clientService: ClientService) {
     this.filterForm = this.fb.group(this.defaultClientDTO);
+    this.searchFilterForm = this.fb.group(this.defaultClientFilterDTO);
   }
   public getCountryFromClient(client: ClientDTO) {
     return this.countries.filter(ct => ct.id == client.countryId).map(ct => ct.code + ' - ' + ct.name)[0]
@@ -185,7 +195,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.crudOperationAndHandler[this.crudOperation](this.filterForm.value);
   }
   public onClientSearch() {
-    this.crudOperationAndHandler['Search']();
+    this.crudOperationAndHandler['Search'](this.searchFilterForm.value);
   }
   public onClientEdit(client: ClientDTO) {
     this.crudOperation = "Edit";
@@ -225,38 +235,33 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.tryGetCountries();
   }
-  private tryGetCountries(){
+  private tryGetCountries() {
 
-      try{
-        unsubscribeIfValid(this.getCountriesSubscription);
-        this.getCountriesSubscription = this.clientService.getCountries()
-        .subscribe(countries => {
-          if(countries === undefined || !countries.length){
-            SwalFire(
-              'Initial error',
-              'Could not get countries from database',
-              'error'
-            )
-            setTimeout(() => this.tryGetCountries(), 30000);
-            return;
-          }
-          this.countries = countries.sort((x, y) => x.code.charCodeAt(0) * 1000 + x.code.charCodeAt(1) - y.code.charCodeAt(0) * 1000 + y.code.charCodeAt(1));
-        },
-          error => {
-            SwalFire(
-              'Initial error',
-              `Could not get countries from database \n Error from server: ${error}`,
-              'error'
+    unsubscribeIfValid(this.getCountriesSubscription);
+    this.getCountriesSubscription = this.clientService.getCountries()
+      .subscribe(countries => {
+        if (countries === undefined || !countries.length) {
+          SwalFire(
+            'Initial error',
+            'Could not get countries from database',
+            'error',
+            4000
+          )
+          setTimeout(() => this.tryGetCountries(), 30000);
+          return;
+        }
+        this.countries = countries.sort((x, y) => x.code.charCodeAt(0) * 1000 + x.code.charCodeAt(1) - y.code.charCodeAt(0) * 1000 + y.code.charCodeAt(1));
+      },
+        error => {
+          SwalFire(
+            'Initial error',
+            `Could not get countries from database \n Error from server: ${error}`,
+            'error',
+            4000
           );
         });
-      }catch(error){
-        SwalFire(
-          'Initial error',
-          `Could not get countries from database\n Error: ${error}`,
-          'error'
-        )
-      }
-    
+
+
   }
   private refreshDataTable(clients: ClientDTO[]) {
     this.clients = clients;
