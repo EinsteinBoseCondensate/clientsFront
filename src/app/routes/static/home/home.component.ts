@@ -20,12 +20,15 @@ import { SwalFire, SwalFireNoButtons } from 'src/app/shared/services/swal.wrappe
 })
 export class HomeComponent implements OnInit, OnDestroy {
   public crudOperation: string = "Create";
+  public isCreateOrEditFormLoading: boolean = false;
+  public isSearchingFormLoading: boolean = false;
   private crudOperationAndHandler: any = {
     "Create": (dto: ClientDTO) => {
-      console.log(dto);
+      this.isCreateOrEditFormLoading = true;
       unsubscribeIfValid(this.createSubscription);
       this.createSubscription = this.clientService.createClient(dto)
         .subscribe((result: CRUDResult) => {
+          this.isCreateOrEditFormLoading = false;
           if (result.wasOk) {
             this.refreshFilterFormOrSetFromClient();
             SwalFire(
@@ -41,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         },
           error => {
+            this.isCreateOrEditFormLoading = false;
             SwalFire(
               'User was not created',
               `There was a communication and/or server error: ${error}`,
@@ -49,9 +53,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           });
     },
     "Edit": (dto: ClientDTO) => {
+      this.isCreateOrEditFormLoading = true;
       unsubscribeIfValid(this.editSubscription);
       this.editSubscription = this.clientService.editClient(dto)
         .subscribe((result: CRUDResult) => {
+          this.isCreateOrEditFormLoading = false;
           if (result.wasOk) {
             this.refreshFilterFormOrSetFromClient();
             this.refreshDataTable([...this.clients.filter(client => client.id != dto.id), dto]);
@@ -71,6 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         },
           error => {
+            this.isCreateOrEditFormLoading = false;
             SwalFire(
               'User was not created',
               `There was a communication and/or server error: ${error}`,
@@ -106,10 +113,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           });
     },
     "Search": (dto: ClientFilterDTO) => {
+      this.isSearchingFormLoading = true;
       unsubscribeIfValid(this.getClientsSubscription);
       this.refreshDataTable([]);
       this.getClientsSubscription = this.clientService.getClients(dto)
         .subscribe((result: ClientDTO[]) => {
+          this.isSearchingFormLoading = false;
           this.refreshDataTable(result);
           if (result && result.length) {
             SwalFireNoButtons(
@@ -128,6 +137,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         },
           error => {
+            this.isSearchingFormLoading = false;
             SwalFireNoButtons(
               'Clients couldn\'t be fetched',
               `There was a communication and/or server error: ${error}`,

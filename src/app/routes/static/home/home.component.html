@@ -37,7 +37,7 @@
                     <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <mat-hint>(Hint)Any day in the calendar</mat-hint>
+                    <mat-hint>(Hint)2000-01-11</mat-hint>
                 </mat-form-field>
             </div>
             <div class="field-wrapper">
@@ -67,7 +67,8 @@
             </div>
             <div class="field-wrapper">
                 <div id="submit-crud" (click)="onSubmit()" [title]="crudOperation">
-                    <fa-icon [icon]="['fas', 'user']"></fa-icon>
+                    <fa-icon *ngIf="!isCreateOrEditFormLoading"  [icon]="['fas', 'user']"></fa-icon>
+                    <app-spinner *ngIf="isCreateOrEditFormLoading"></app-spinner>
                 </div>
             </div>
         </form>
@@ -151,7 +152,8 @@
             </form>
             <div class="field-wrapper">
                 <div id="submit-crud" (click)="onClientSearch()" title="Search">
-                    <fa-icon [icon]="['fas', 'user']"></fa-icon>
+                    <fa-icon *ngIf="!isSearchingFormLoading"  [icon]="['fas', 'user']"></fa-icon>
+                    <app-spinner *ngIf="isSearchingFormLoading"></app-spinner>
                 </div>
             </div>
         </section>

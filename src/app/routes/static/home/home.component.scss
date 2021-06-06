@@ -4,6 +4,9 @@
     --backgroundDatePicker: white;
     --colorDatePicker: black;
 }
+app-spinner{
+    margin-top: calc(50% + 0.9em);
+}
 :host {
     height: -webkit-fill-available !important;
 }

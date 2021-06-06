@@ -5,14 +5,15 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectedMaterialModule } from './styles/selected-material/selected-material.module';
 import { ThemeChooserComponent } from './components/theme-chooser/theme-chooser.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { ClientService } from './services/clients.service';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'  
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 @NgModule({
-  declarations: [FooterComponent, ToolbarComponent, ThemeChooserComponent],
+  declarations: [FooterComponent, ToolbarComponent, ThemeChooserComponent, SpinnerComponent],
   imports: [
     CommonModule,
     SelectedMaterialModule,
@@ -27,6 +28,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
   exports:[
     ToolbarComponent,
     FooterComponent,
+    SpinnerComponent,
+    ThemeChooserComponent,
     SelectedMaterialModule,
     BrowserAnimationsModule,
     FontAwesomeModule
@@ -39,6 +42,7 @@ export class SharedModule {
       providers:[
         ToolbarComponent, 
         FooterComponent,
+
         SelectedMaterialModule,
         FontAwesomeModule,
         BrowserAnimationsModule,

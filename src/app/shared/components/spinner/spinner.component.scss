@@ -1,0 +1,27 @@
+@keyframes spinner {
+    0% {
+      transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
+  }
+  .spin::before {
+    animation: 1.5s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite spinner;
+    animation-play-state: inherit;
+    border: solid 5px #cfd0d1;
+    border-bottom-color: #303030 !important;
+    border-radius: 50%;
+    content: "";
+  
+    height: 40px;
+    width: 40px;
+    position: relative;
+    display: flex;
+    margin-left: 50%;
+    margin-top: 5%;
+    will-change: transform;
+  }
+  .spin{
+    text-align: center;
+  }

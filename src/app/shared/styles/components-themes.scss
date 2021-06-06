@@ -10,7 +10,6 @@
 @mixin components-theme-extra-info($theme, $is-dark-theme) {
   @include toolbar-theme($theme, $is-dark-theme);
   @include footer-theme($theme, $is-dark-theme);
-  @include footer-theme($theme, $is-dark-theme);
   @include home-theme($theme, $is-dark-theme);
   
 }
