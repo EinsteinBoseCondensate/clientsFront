@@ -11,7 +11,7 @@ import { ClientService } from '../../../shared/services/clients.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
-import { SwalFire } from 'src/app/shared/services/swal.wrapper';
+import { SwalFire, SwalFireNoButtons } from 'src/app/shared/services/swal.wrapper';
 
 @Component({
   selector: 'app-home',
@@ -112,27 +112,27 @@ export class HomeComponent implements OnInit, OnDestroy {
         .subscribe((result: ClientDTO[]) => {
           this.refreshDataTable(result);
           if (result && result.length) {
-            SwalFire(
+            SwalFireNoButtons(
               'Clients fetched',
               `Clients successfully fetched`,
               'success',
-              2500
+              1618.0339887
             )
           } else {
-            SwalFire(
+            SwalFireNoButtons(
               'No clients fetched',
               `No clients arrived from request`,
               'warning',
-              4000
+              2000
             )
           }
         },
           error => {
-            SwalFire(
+            SwalFireNoButtons(
               'Clients couldn\'t be fetched',
               `There was a communication and/or server error: ${error}`,
               'error',
-              8000
+              2000
             )
           });
     },
@@ -150,7 +150,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator | undefined;
   public countries: CountryFeed[] = [];
-  public countriesSource: MatTableDataSource<CountryFeed> = new MatTableDataSource<CountryFeed>([]);
+  public searchCountries: CountryFeed[] = [];
   public clients: ClientDTO[] = [];
   public clientsSource: MatTableDataSource<ClientDTO> = new MatTableDataSource<ClientDTO>([]);
   public getCountriesSubscription: Subscription = new Subscription();
@@ -164,7 +164,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     'id': 'fakeId',
     'name': "",
     'surname': "",
-    'gender': 2,
+    'gender': 1000,
     'dateOfBirth': null,
     'address': "",
     'countryId': '',
@@ -241,23 +241,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getCountriesSubscription = this.clientService.getCountries()
       .subscribe(countries => {
         if (countries === undefined || !countries.length) {
-          SwalFire(
+          SwalFireNoButtons(
             'Initial error',
-            'Could not get countries from database',
+            'Could not get countries from database, retrying in 15 seconds',
             'error',
-            4000
+            2000
           )
-          setTimeout(() => this.tryGetCountries(), 30000);
+          setTimeout(() => this.tryGetCountries(), 15000);
           return;
         }
         this.countries = countries.sort((x, y) => x.code.charCodeAt(0) * 1000 + x.code.charCodeAt(1) - y.code.charCodeAt(0) * 1000 + y.code.charCodeAt(1));
+        this.searchCountries = [{id: '', name: 'None', code: '**'},...this.countries];
       },
         error => {
-          SwalFire(
+          SwalFireNoButtons(
             'Initial error',
             `Could not get countries from database \n Error from server: ${error}`,
             'error',
-            4000
+            2000
           );
         });
 

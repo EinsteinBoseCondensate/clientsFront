@@ -108,10 +108,10 @@
                 <div class="field-wrapper">
                     <mat-form-field appearance="legacy">
                         <mat-label>Date of birth (From)</mat-label>
-                        <input matInput formControlName="from" [matDatepicker]="pickeFrom">
-                        <mat-datepicker-toggle matSuffix [for]="pickeFrom"></mat-datepicker-toggle>
-                        <mat-datepicker #pickeFrom></mat-datepicker>
-                        <mat-hint>(Hint)Date of birth start search date</mat-hint>
+                        <input matInput formControlName="from" [matDatepicker]="pickerFrom">
+                        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFrom></mat-datepicker>
+                        <mat-hint>(Hint)2000-01-11</mat-hint>
                     </mat-form-field>
                 </div>
                 <div class="field-wrapper">
@@ -120,7 +120,7 @@
                         <input matInput formControlName="to" [matDatepicker]="pickerTo">
                         <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
                         <mat-datepicker #pickerTo></mat-datepicker>
-                        <mat-hint>(Hint)Date of birth end search date</mat-hint>
+                        <mat-hint>(Hint)2021-06-06</mat-hint>
                     </mat-form-field>
                 </div>
                 <div class="field-wrapper">
@@ -134,7 +134,7 @@
                     <mat-form-field appearance="legacy">
                         <mat-label>Country</mat-label>
                         <mat-select formControlName="countryId" class="country-select">
-                            <mat-option *ngFor="let countr of countries" [value]="countr.id">
+                            <mat-option *ngFor="let countr of searchCountries" [value]="countr.id">
                                 {{countr.code }} - {{ countr.name }}
                             </mat-option>
                         </mat-select>
