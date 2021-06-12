@@ -158,57 +158,7 @@
             </div>
         </section>
         <section>
-            <table mat-table class="clients-table mat-elevation-z8" [dataSource]="clientsSource">
-
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef>#</th>
-                    <td mat-cell *matCellDef="let client">{{client.id}}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef>Name</th>
-                    <td mat-cell *matCellDef="let client">{{client.name}}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="surname">
-                    <th mat-header-cell *matHeaderCellDef>Surname</th>
-                    <td mat-cell class="duration-cell" *matCellDef="let client">{{client.surname}}</td>
-                </ng-container>
-                <ng-container matColumnDef="gender">
-                    <th mat-header-cell *matHeaderCellDef>Gender</th>
-                    <td mat-cell class="duration-cell" *matCellDef="let client">{{client.gender == 0 ? 'Male' :
-                        client.gender == 1 ? 'Female' : client.gender == 2 ? 'Ambiguous' : '-'}}</td>
-                </ng-container>
-                <ng-container matColumnDef="dateOfBirth">
-                    <th mat-header-cell *matHeaderCellDef>Date of birth</th>
-                    <td mat-cell class="duration-cell" *matCellDef="let client">{{client.dateOfBirth | date: 'MM/dd/yyyy'}}</td>
-                </ng-container>
-                <ng-container matColumnDef="address">
-                    <th mat-header-cell *matHeaderCellDef>Address</th>
-                    <td mat-cell class="duration-cell" *matCellDef="let client">{{client.address}}</td>
-                </ng-container>
-                <ng-container matColumnDef="countryId">
-                    <th mat-header-cell *matHeaderCellDef>Country</th>
-                    <td mat-cell class="duration-cell" *matCellDef="let client">{{ getCountryFromClient(client) }}</td>
-                </ng-container>
-                <ng-container matColumnDef="postalCode">
-                    <th mat-header-cell *matHeaderCellDef>PostalCode</th>
-                    <td mat-cell class="duration-cell" *matCellDef="let client">{{client.postalCode}}</td>
-                </ng-container>
-                <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef>Actions</th>
-                    <td mat-cell *matCellDef="let client">
-                        <div class="action-cell">
-                            <div class="edit" title="Edit" (click)="onClientEdit(client)">EDIT</div>
-                            <div class="remove" title="Remove" (click)="onClientRemove(client.id)">REMOVE</div>
-                        </div>
-                    </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-            <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            <app-custom-data-table [columns]="columns" [data]="clients"></app-custom-data-table>
         </section>
 
 

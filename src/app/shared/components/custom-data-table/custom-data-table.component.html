@@ -1,0 +1,65 @@
+<section>
+    <div style="overflow-x: overlay;     width: 100%;">
+        <table mat-table class="clients-table mat-elevation-z8" [dataSource]="dataSource">
+
+            <ng-container *ngFor="let column of columns">
+
+
+                <ng-container *ngIf="column.type == 'default'" [matColumnDef]="column.prop">
+                    <th mat-header-cell *matHeaderCellDef>{{column.header}}</th>
+                    <td mat-cell *matCellDef="let cell">{{cell[column.prop]}}</td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type == 'date'" [matColumnDef]="column.prop">
+                    <th mat-header-cell *matHeaderCellDef>{{column.header}}</th>
+                    <td mat-cell *matCellDef="let cell">{{cell[column.prop] | date: dateFormat}}</td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type == 'actions-custom'" [matColumnDef]="column.prop">
+                    <th mat-header-cell *matHeaderCellDef>{{column.header}}</th>
+                    <td mat-cell *matCellDef="let cell">{{column.customCellAction ? column.customCellAction(cell) :
+                        'Custom-field-action-not-provided!'}}</td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type == 'actions'" matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let cell">
+                        <div class="action-cell">
+                            <div class="edit" title="Edit"
+                                (click)="column.editCellAction ? column.editCellAction(cell) : undefined">EDIT</div>
+                            <div class="remove" title="Remove"
+                                (click)="column.removeCellAction ? column.removeCellAction(cell) : undefined">REMOVE
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type == 'actions-remove'" matColumnDef="actions-remove">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let cell">
+                        <div class="action-cell">
+                            <div class="remove" title="Remove"
+                                (click)="column.removeCellAction ? column.removeCellAction(cell) : undefined">REMOVE
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type == 'actions-detail'" matColumnDef="actions-detail">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let cell">
+                        <div class="action-cell">
+                            <div class="edit" title="Edit"
+                                (click)="column.editCellAction ? column.editCellAction(cell) : undefined">EDIT</div>
+                        </div>
+                    </td>
+                </ng-container>
+
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+            <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+        </table>
+    </div>
+    <mat-paginator #paginator [pageSizeOptions]="paginatorSizeOptions" showFirstLastButtons></mat-paginator>
+</section>

@@ -12,6 +12,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { SwalFire, SwalFireNoButtons } from 'src/app/shared/services/swal.wrapper';
+import { DataTableColumn } from 'src/app/shared/models/components/custom-data-table/data-table-column.model';
+import { ColumnType } from 'src/app/shared/models/components/custom-data-table/columns.enum';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +21,20 @@ import { SwalFire, SwalFireNoButtons } from 'src/app/shared/services/swal.wrappe
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  public columns: DataTableColumn[] = [
+    { prop: 'name', header: 'name', type: ColumnType.Default },
+    { prop: 'surname', header: 'surname', type: ColumnType.Default },
+    {
+      prop: 'gender', header: 'gender', type: ColumnType.ActionsCustom, customCellAction: client => client.gender == 0 ? 'Male' : client.gender == 1 ? 'Female' : client.gender == 2 ? 'Ambiguous' : '-'
+    },
+    { prop: 'dateOfBirth', header: 'dateOfBirth', type: ColumnType.Date },
+    { prop: 'address', header: 'address', type: ColumnType.Default },
+    { prop: 'countryId', header: 'country', type: ColumnType.ActionsCustom, customCellAction: client => this.getCountryFromClient(client) },
+    { prop: 'postalCode', header: 'postalCode', type: ColumnType.Default },
+    { prop: 'actions', header: '', type: ColumnType.Actions, editCellAction: client => this.onClientEdit(client), removeCellAction: client => this.onClientRemove(client.id) }
+    
+
+  ]
   public crudOperation: string = "Create";
   public isCreateOrEditFormLoading: boolean = false;
   public isSearchingFormLoading: boolean = false;
@@ -147,22 +163,9 @@ export class HomeComponent implements OnInit, OnDestroy {
           });
     },
   };
-  displayedColumns = [
-    'name',
-    'surname',
-    'gender',
-    'dateOfBirth',
-    'address',
-    'countryId',
-    'postalCode',
-    'actions'
-  ];
-  @ViewChild(MatPaginator, { static: true })
-  paginator: MatPaginator | undefined;
   public countries: CountryFeed[] = [];
   public searchCountries: CountryFeed[] = [];
   public clients: ClientDTO[] = [];
-  public clientsSource: MatTableDataSource<ClientDTO> = new MatTableDataSource<ClientDTO>([]);
   public getCountriesSubscription: Subscription = new Subscription();
   public getClientsSubscription: Subscription = new Subscription();
   public createSubscription: Subscription = new Subscription();
@@ -261,7 +264,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           return;
         }
         this.countries = countries.sort((x, y) => x.code.charCodeAt(0) * 1000 + x.code.charCodeAt(1) - y.code.charCodeAt(0) * 1000 + y.code.charCodeAt(1));
-        this.searchCountries = [{id: '', name: 'None', code: '**'},...this.countries];
+        this.searchCountries = [{ id: '', name: 'None', code: '**' }, ...this.countries];
       },
         error => {
           SwalFireNoButtons(
@@ -276,9 +279,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   private refreshDataTable(clients: ClientDTO[]) {
     this.clients = clients;
-    this.clientsSource = new MatTableDataSource<ClientDTO>(this.clients);
-    this.clientsSource.paginator = this.paginator ?? null;
-
   }
   private refreshFilterFormOrSetFromClient(client?: ClientDTO) {
     this.filterFormKeys.map(str => {
