@@ -17,19 +17,22 @@ export class CustomDataTableComponent implements OnInit, OnChanges {
   public data: any[] = [];
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   
-  public paginatorSizeOptions: number[] = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+  public paginatorSizeOptions: number[] = [10, 15, 20, 25, 30, 35, 40, 45, 50];
   public tableHeaders: string[] = [];
   @Input()
   public dateFormat: string = 'MM/dd/yyyy';
   constructor() { } 
 
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.data.currentValue != changes.data.previousValue) {
+    if (changes.data && changes.data.currentValue != changes.data.previousValue) {
       this.setDataSource(changes.data.currentValue);
+      
     }
-    if (changes.columns.currentValue != changes.columns.previousValue) {
+    if (changes.columns && changes.columns.currentValue != changes.columns.previousValue) {
       this.setHeaders();
     }
+
   }  
   ngOnInit(): void {
     this.setHeaders();
@@ -41,6 +44,7 @@ export class CustomDataTableComponent implements OnInit, OnChanges {
   private setDataSource(data: any[]) {
     this.dataSource = new MatTableDataSource<any>(this.data);
     if (this.paginator) {
+      this.paginator.length = this.data.length;
       this.dataSource.paginator = this.paginator;
     }
   }

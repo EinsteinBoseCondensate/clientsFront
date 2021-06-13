@@ -1,0 +1,4 @@
+<div class="submit-crud" (click)="onSubmit()" [title]="title">
+    <fa-icon *ngIf="!isLoading"  [icon]="['fas', 'user']"></fa-icon>
+    <app-spinner *ngIf="isLoading"></app-spinner>
+</div>

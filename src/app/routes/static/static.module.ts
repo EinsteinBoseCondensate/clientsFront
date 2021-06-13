@@ -15,7 +15,7 @@ const routes: Routes = [
   declarations: [HomeComponent],
   imports: [
     CommonModule,
-    SharedModule.forRoot()
+    SharedModule
   ]
 })
 export class StaticModule { }

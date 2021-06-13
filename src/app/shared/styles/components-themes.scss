@@ -1,8 +1,13 @@
+@forward "./post-render/buttons.scss";
+
+
 @import "../components/toolbar/toolbar.component.scss";
 @import "../components/footer/footer.component.scss";
 @import "./common.scss";
 @import "../../routes/static/home/home.component.scss";
 @import "./swal.wrapper/swal.wrapper.scss";
+
+
 
 @mixin components-theme($theme) {
   @include common-app-styles($theme);

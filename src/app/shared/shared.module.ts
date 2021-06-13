@@ -11,10 +11,12 @@ import { ClientService } from './services/clients.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { CustomDataTableComponent } from './components/custom-data-table/custom-data-table.component';
+import { CustomDataTableServerPagedComponent } from './components/custom-data-table-server-paged/custom-data-table-server-paged.component';
+import { UserIconButtonComponent } from './components/buttons/user-icon-button/user-icon-button.component';
 
 
 @NgModule({
-  declarations: [FooterComponent, ToolbarComponent, ThemeChooserComponent, SpinnerComponent, CustomDataTableComponent],
+  declarations: [FooterComponent, ToolbarComponent, ThemeChooserComponent, SpinnerComponent, CustomDataTableComponent, CustomDataTableServerPagedComponent, UserIconButtonComponent],
   imports: [
     CommonModule,
     SelectedMaterialModule,
@@ -34,7 +36,9 @@ import { CustomDataTableComponent } from './components/custom-data-table/custom-
     SelectedMaterialModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
-    CustomDataTableComponent
+    CustomDataTableComponent,
+    UserIconButtonComponent,
+    CustomDataTableServerPagedComponent
   ]
 })
 export class SharedModule {
@@ -42,12 +46,10 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers:[
-        ToolbarComponent, 
-        FooterComponent,
 
-        SelectedMaterialModule,
-        FontAwesomeModule,
-        BrowserAnimationsModule,
+
+
+        
         ApiService,
         ClientService
       ]

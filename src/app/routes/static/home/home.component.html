@@ -66,14 +66,11 @@
                 </mat-form-field>
             </div>
             <div class="field-wrapper">
-                <div id="submit-crud" (click)="onSubmit()" [title]="crudOperation">
-                    <fa-icon *ngIf="!isCreateOrEditFormLoading"  [icon]="['fas', 'user']"></fa-icon>
-                    <app-spinner *ngIf="isCreateOrEditFormLoading"></app-spinner>
-                </div>
+                <app-user-icon-button (click)="onSubmit()" [title]="crudOperation" [isLoading]="isCreateOrEditFormLoading"></app-user-icon-button>
             </div>
         </form>
     </section>
-    <section class="bottom-body">
+    <section class="bottom-body mat-app-background">
         
         <section class="top-body search-panel">
             <div class="crud-selector">Search</div>
@@ -150,15 +147,17 @@
                     </mat-form-field>
                 </div>
             </form>
-            <div class="field-wrapper">
-                <div id="submit-crud" (click)="onClientSearch()" title="Search">
-                    <fa-icon *ngIf="!isSearchingFormLoading"  [icon]="['fas', 'user']"></fa-icon>
-                    <app-spinner *ngIf="isSearchingFormLoading"></app-spinner>
-                </div>
+            <div class="field-wrapper" style="width: fit-content;">
+                <app-user-icon-button (click)="onClientSearch()" [title]="'Search'" [isLoading]="isSearchingFormLoading"></app-user-icon-button>
             </div>
         </section>
         <section>
-            <app-custom-data-table [columns]="columns" [data]="clients"></app-custom-data-table>
+            <app-custom-data-table-server-paged 
+            [columns]="columns" 
+            [data]="clients" 
+            [length]="totalClients" 
+            (pageChanged)="onClientPagedSearch($event)">
+            </app-custom-data-table-server-paged>
         </section>
 
 

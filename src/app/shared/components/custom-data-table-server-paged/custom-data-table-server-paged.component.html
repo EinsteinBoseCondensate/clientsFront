@@ -1,5 +1,5 @@
 <section>
-    <div style="overflow-x: overlay;     width: 100%;">
+    <div style="overflow-x: overlay;     width: 100%;"  *ngIf="!isLoading">
         <table mat-table class="clients-table mat-elevation-z8" [dataSource]="dataSource">
 
             <ng-container *ngFor="let column of columns">
@@ -61,5 +61,13 @@
             <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
         </table>
     </div>
-    <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="paginatorSizeOptions" showFirstLastButtons></mat-paginator>
+    <div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+    </div>
+    <mat-paginator #paginator 
+        [length]="length" 
+        ([pageIndex])="pageIndex" 
+        ([pageSize])="pageSize"
+        [pageSizeOptions]="paginatorSizeOptions" showFirstLastButtons
+        (page)="getServerData($event)"></mat-paginator>
 </section>

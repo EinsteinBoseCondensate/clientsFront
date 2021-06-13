@@ -5,11 +5,9 @@ import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { CountryFeed } from '../../../shared/models/backend/all.countries.feed';
 import { ClientDTO, ClientFilterDTO } from '../../../shared/models/backend/clientDTO.model';
-import { CRUDResult } from '../../../shared/models/backend/crud-result.model';
+import { CRUDResult, CRUDResults } from '../../../shared/models/backend/crud-result.model';
 import { unsubscribeIfValid } from '../../../shared/services/subscriptions.helper';
 import { ClientService } from '../../../shared/services/clients.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { SwalFire, SwalFireNoButtons } from 'src/app/shared/services/swal.wrapper';
 import { DataTableColumn } from 'src/app/shared/models/components/custom-data-table/data-table-column.model';
@@ -32,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     { prop: 'countryId', header: 'country', type: ColumnType.ActionsCustom, customCellAction: client => this.getCountryFromClient(client) },
     { prop: 'postalCode', header: 'postalCode', type: ColumnType.Default },
     { prop: 'actions', header: '', type: ColumnType.Actions, editCellAction: client => this.onClientEdit(client), removeCellAction: client => this.onClientRemove(client.id) }
-    
+
 
   ]
   public crudOperation: string = "Create";
@@ -128,15 +126,16 @@ export class HomeComponent implements OnInit, OnDestroy {
             )
           });
     },
-    "Search": (dto: ClientFilterDTO) => {
+    "Search": (dto: ClientFilterDTO, paged: boolean = false) => {
       this.isSearchingFormLoading = true;
       unsubscribeIfValid(this.getClientsSubscription);
       this.refreshDataTable([]);
       this.getClientsSubscription = this.clientService.getClients(dto)
-        .subscribe((result: ClientDTO[]) => {
+        .subscribe((result: CRUDResults<ClientDTO>) => {
           this.isSearchingFormLoading = false;
-          this.refreshDataTable(result);
-          if (result && result.length) {
+          this.refreshDataTable(paged ? [...this.clients, ...result?.data] : result?.data);
+          this.totalClients = result?.count;  
+          if (result?.data?.length) {
             SwalFireNoButtons(
               'Clients fetched',
               `Clients successfully fetched`,
@@ -186,9 +185,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   private defaultClientFilterDTO: any = {
     ...this.defaultClientDTO,
     "from": null,
-    "to": null
+    "to": null,
+    "skip": 0,
+    "take": 10
   };
   private filterFormKeys = 'id.name.surname.gender.dateOfBirth.address.countryId.postalCode'.split('.');
+  public totalClients: number = 0;
   constructor(private fb: FormBuilder, private clientService: ClientService) {
     this.filterForm = this.fb.group(this.defaultClientDTO);
     this.searchFilterForm = this.fb.group(this.defaultClientFilterDTO);
@@ -234,12 +236,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         )
       }
     })
-
-
-
-
-
-
+  }
+  public onClientPagedSearch(event : {skip: number, take: number}){
+    this.totalClients = 0;
+    this.searchFilterForm.value.skip = event.skip;
+    this.searchFilterForm.value.take = event.take;
+    this.crudOperationAndHandler['Search'](this.searchFilterForm.value, true);
   }
   public onEditAbort() {
     this.crudOperation = 'Create';
