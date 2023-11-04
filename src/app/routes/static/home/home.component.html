@@ -7,21 +7,21 @@
 
             <input type="hidden" formControlName="id">
             <div class="field-wrapper">
-                <mat-form-field appearance="legacy">
+                <mat-form-field appearance="outline">
                     <mat-label>Name</mat-label>
                     <input matInput formControlName="name" autocomplete="off">
                     <mat-hint>(Hint)Paul</mat-hint>
                 </mat-form-field>
             </div>
             <div class="field-wrapper">
-                <mat-form-field appearance="legacy">
+                <mat-form-field appearance="outline">
                     <mat-label>Surname</mat-label>
                     <input matInput formControlName="surname" autocomplete="off">
                     <mat-hint>(Hint)Milestones</mat-hint>
                 </mat-form-field>
             </div>
             <div class="field-wrapper">
-                <mat-form-field appearance="legacy">
+                <mat-form-field appearance="outline">
                     <mat-label>Gender</mat-label>
                     <mat-select formControlName="gender" class="gender-select">
                         <mat-option value="0">Male</mat-option>
@@ -32,7 +32,7 @@
                 </mat-form-field>
             </div>
             <div class="field-wrapper">
-                <mat-form-field appearance="legacy">
+                <mat-form-field appearance="outline">
                     <mat-label>Date of birth</mat-label>
                     <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -41,14 +41,14 @@
                 </mat-form-field>
             </div>
             <div class="field-wrapper">
-                <mat-form-field appearance="legacy">
+                <mat-form-field appearance="outline">
                     <mat-label>Address</mat-label>
                     <input matInput formControlName="address" autocomplete="off">
                     <mat-hint>(Hint)Morris Ave</mat-hint>
                 </mat-form-field>
             </div>
             <div class="field-wrapper">
-                <mat-form-field appearance="legacy">
+                <mat-form-field appearance="outline">
                     <mat-label>Country</mat-label>
                     <mat-select formControlName="countryId" class="country-select">
                         <mat-option *ngFor="let countr of countries" [value]="countr.id">{{countr.code }} - {{
@@ -59,7 +59,7 @@
                 </mat-form-field>
             </div>
             <div class="field-wrapper">
-                <mat-form-field appearance="legacy">
+                <mat-form-field appearance="outline">
                     <mat-label>Postal code</mat-label>
                     <input matInput formControlName="postalCode" autocomplete="off">
                     <mat-hint>(Hint)30700</mat-hint>
@@ -79,21 +79,21 @@
                 <input type="hidden" formControlName="id">
                 <input type="hidden" formControlName="dateOfBirth">
                 <div class="field-wrapper">
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field appearance="outline">
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="name" autocomplete="off">
                         <mat-hint>(Hint)Paul</mat-hint>
                     </mat-form-field>
                 </div>
                 <div class="field-wrapper">
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field appearance="outline">
                         <mat-label>Surname</mat-label>
                         <input matInput formControlName="surname" autocomplete="off">
                         <mat-hint>(Hint)Milestones</mat-hint>
                     </mat-form-field>
                 </div>
                 <div class="field-wrapper">
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field appearance="outline">
                         <mat-label>Gender</mat-label>
                         <mat-select formControlName="gender" class="gender-select">
                             <mat-option value="0">Male</mat-option>
@@ -104,7 +104,7 @@
                     </mat-form-field>
                 </div>
                 <div class="field-wrapper">
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field appearance="outline">
                         <mat-label>Date of birth (From)</mat-label>
                         <input matInput formControlName="from" [matDatepicker]="pickerFrom">
                         <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
@@ -113,7 +113,7 @@
                     </mat-form-field>
                 </div>
                 <div class="field-wrapper">
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field appearance="outline">
                         <mat-label>Date of birth (To)</mat-label>
                         <input matInput formControlName="to" [matDatepicker]="pickerTo">
                         <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
@@ -122,14 +122,14 @@
                     </mat-form-field>
                 </div>
                 <div class="field-wrapper">
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field appearance="outline">
                         <mat-label>Address</mat-label>
                         <input matInput formControlName="address" autocomplete="off">
                         <mat-hint>(Hint)Morris Ave</mat-hint>
                     </mat-form-field>
                 </div>
                 <div class="field-wrapper">
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field appearance="outline">
                         <mat-label>Country</mat-label>
                         <mat-select formControlName="countryId" class="country-select">
                             <mat-option *ngFor="let countr of searchCountries" [value]="countr.id">
@@ -140,7 +140,7 @@
                     </mat-form-field>
                 </div>
                 <div class="field-wrapper">
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field appearance="outline">
                         <mat-label>Postal code</mat-label>
                         <input matInput formControlName="postalCode" autocomplete="off">
                         <mat-hint>(Hint)30700</mat-hint>
@@ -156,7 +156,7 @@
             [columns]="columns" 
             [data]="clients" 
             [length]="totalClients" 
-            (pageChanged)="onClientPagedSearch($event)">
+            (pageSettingsChanged)="onClientPagedSearch($event)">
             </app-custom-data-table-server-paged>
         </section>
 

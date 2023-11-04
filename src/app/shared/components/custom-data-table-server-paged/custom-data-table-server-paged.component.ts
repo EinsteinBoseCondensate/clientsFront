@@ -1,4 +1,4 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,8 +11,10 @@ import { DataTableColumn } from '../../models/components/custom-data-table/data-
 })
 export class CustomDataTableServerPagedComponent implements OnInit, AfterViewInit {
   @Input()
-  public pageSize = 10;
-  public pageIndex = 0;
+  public pageSettings = { pageSize: 10, pageIndex: 0 };
+  @Output()
+  public pageSettingsChanged: EventEmitter<{ skip: number, take: number }> = new EventEmitter<{ skip: number, take: number }>();
+
   @Input()
   public length = 0;
   @ViewChild(MatPaginator, { static: true })
@@ -26,8 +28,6 @@ export class CustomDataTableServerPagedComponent implements OnInit, AfterViewIni
   public tableHeaders: string[] = [];
   @Input()
   public dateFormat: string = 'MM/dd/yyyy';
-  @Output()
-  public pageChanged: EventEmitter<{ skip: number, take: number }> = new EventEmitter<{ skip: number, take: number }>();
   @Input()
   public isLoading: boolean = false;
   constructor() { }
@@ -58,9 +58,9 @@ export class CustomDataTableServerPagedComponent implements OnInit, AfterViewIni
   }
   public getServerData(event?: PageEvent) {
     this.dataSource.paginator = null;
-    this.pageIndex = event?.pageIndex ?? this.pageIndex;
-    this.pageSize = event?.pageSize ?? this.pageSize;
-    event ? this.pageChanged.emit({ skip: event.pageIndex, take: event.pageSize }) : undefined;
+    this.pageSettings.pageIndex = event?.pageIndex ?? this.pageSettings.pageIndex;
+    this.pageSettings.pageSize = event?.pageSize ?? this.pageSettings.pageSize;
+    event ? this.pageSettingsChanged.emit({ skip: event.pageIndex, take: event.pageSize }) : undefined;
   }
 
 }

@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "custom-theme-and-translate-example"
+  "defaultProject": "custom-theme-and-translate-example",
+  "cli": {
+    "analytics": false
+  }
 }
